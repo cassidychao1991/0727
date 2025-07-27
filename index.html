@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧家庭電器儀表板</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- 左側導航欄 -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-home"></i>
+                    <span>智慧家庭</span>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="#dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>儀表板</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#appliances">
+                        <i class="fas fa-plug"></i>
+                        <span>電器控制</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics">
+                        <i class="fas fa-chart-line"></i>
+                        <span>用電分析</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#settings">
+                        <i class="fas fa-cog"></i>
+                        <span>設定</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#profile">
+                        <i class="fas fa-user"></i>
+                        <span>個人資料</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- 主要內容區域 -->
+        <main class="main-content">
+            <!-- 頂部標題欄 -->
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>儀表板</h1>
+                </div>
+                <div class="header-right">
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                    </div>
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 歡迎卡片 -->
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <h2>您好，歡迎回家！</h2>
+                    <p>今天是一個美好的日子，您的家庭一切正常運作中</p>
+                </div>
+                <div class="welcome-illustration">
+                    <i class="fas fa-house-user"></i>
+                </div>
+            </div>
+
+            <!-- 主要圖表區域 -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <h3>用電量活動</h3>
+                    <div class="chart-controls">
+                        <select id="time-range">
+                            <option value="week">本週</option>
+                            <option value="month">本月</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="power-chart" class="main-chart"></div>
+            </div>
+
+            <!-- 統計卡片區域 -->
+            <div class="stats-section">
+                <!-- 用電統計卡片 -->
+                <div class="stat-card primary">
+                    <div class="stat-header">
+                        <h4>今日用電量</h4>
+                        <div class="stat-controls">
+                            <select id="today-select">
+                                <option value="today">今日</option>
+                                <option value="yesterday">昨日</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="stat-value">
+                        <span id="today-usage">28.5</span>
+                        <span class="unit">kWh</span>
+                    </div>
+                    <div class="stat-chart">
+                        <div id="today-chart" class="mini-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 即時用電卡片 -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>即時用電量</h4>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-value">
+                        <span id="current-power">3.6</span>
+                        <span class="unit">kW</span>
+                    </div>
+                    <div class="stat-chart">
+                        <div id="current-chart" class="mini-chart"></div>
+                    </div>
+                </div>
+
+                <!-- 最高耗電家電卡片 -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>最高耗電家電</h4>
+                        <div class="stat-change positive">
+                            <i class="fas fa-fire"></i>
+                            <span>冷氣</span>
+                        </div>
+                    </div>
+                    <div class="stat-value">
+                        <span id="highest-consumer-power">2.5</span>
+                        <span class="unit">kW</span>
+                    </div>
+                    <div class="stat-chart">
+                        <div id="highest-chart" class="mini-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 家電狀態網格 -->
+            <div class="appliances-grid">
+                <h3>家電狀態</h3>
+                <div class="appliances-container">
+                    <div class="appliance-card" data-appliance="ac">
+                        <div class="appliance-icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>冷氣</h4>
+                            <p class="status active">開啟中</p>
+                            <p class="power">2.5 kW</p>
+                        </div>
+                        <div class="toggle-switch active">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="appliance-card" data-appliance="light">
+                        <div class="appliance-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>客廳燈</h4>
+                            <p class="status active">開啟中</p>
+                            <p class="power">0.3 kW</p>
+                        </div>
+                        <div class="toggle-switch active">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="appliance-card" data-appliance="tv">
+                        <div class="appliance-icon">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>電視</h4>
+                            <p class="status">關閉</p>
+                            <p class="power">0.0 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="appliance-card" data-appliance="fridge">
+                        <div class="appliance-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>冰箱</h4>
+                            <p class="status active">運轉中</p>
+                            <p class="power">0.8 kW</p>
+                        </div>
+                        <div class="toggle-switch active">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="appliance-card" data-appliance="washer">
+                        <div class="appliance-icon">
+                            <i class="fas fa-washing-machine"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>洗衣機</h4>
+                            <p class="status">關閉</p>
+                            <p class="power">0.0 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="appliance-card" data-appliance="microwave">
+                        <div class="appliance-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="appliance-info">
+                            <h4>微波爐</h4>
+                            <p class="status">關閉</p>
+                            <p class="power">0.0 kW</p>
+                        </div>
+                        <div class="toggle-switch">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 右側邊欄 -->
+        <aside class="right-sidebar">
+            <!-- 頂部功能 -->
+            <div class="sidebar-top">
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    登出
+                </button>
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+            </div>
+
+            <!-- 用戶資訊卡片 -->
+            <div class="user-card">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <h4>張小明</h4>
+                    <p class="user-role">家庭管理員</p>
+                </div>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">家庭成員</span>
+                        <span class="stat-value">4人</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">房間數量</span>
+                        <span class="stat-value">3間</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">設備數量</span>
+                        <span class="stat-value">12台</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 月度目標 -->
+            <div class="goals-card">
+                <h4>本月用電目標</h4>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span>總用電量</span>
+                        <span>650 / 800 kWh</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 81%"></div>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span>節能目標</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span>設備效率</span>
+                        <span>92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 任務列表 -->
+            <div class="tasks-card">
+                <h4>待辦任務</h4>
+                <div class="task-item completed">
+                    <div class="task-checkbox">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="task-content">
+                        <span class="task-text">檢查電器狀態</span>
+                        <span class="task-time">今天 15:00</span>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox"></div>
+                    <div class="task-content">
+                        <span class="task-text">清潔空調濾網</span>
+                        <span class="task-time">明天 10:00</span>
+                    </div>
+                </div>
+                <div class="task-item">
+                    <div class="task-checkbox"></div>
+                    <div class="task-content">
+                        <span class="task-text">檢查冰箱溫度</span>
+                        <span class="task-time">後天 14:00</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

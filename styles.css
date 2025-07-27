@@ -1,0 +1,783 @@
+/* 重置和基礎樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8fafc;
+    color: #2d3748;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 儀表板容器 */
+.dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    min-height: 100vh;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+/* 左側導航欄 */
+.sidebar {
+    background: #22c55e;
+    padding: 24px 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+    padding: 0 24px 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0 16px;
+}
+
+.nav-item {
+    margin-bottom: 8px;
+}
+
+.nav-item a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-item a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.nav-item.active a {
+    background: white;
+    color: #22c55e;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* 主要內容區域 */
+.main-content {
+    margin-left: 280px;
+    padding: 24px 32px;
+    background: #f8fafc;
+}
+
+/* 頂部標題欄 */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.top-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.date-time {
+    background: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.search-icon {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-icon:hover {
+    background: #22c55e;
+    color: white;
+    border-color: #22c55e;
+}
+
+/* 歡迎卡片 */
+.welcome-card {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 8px 32px rgba(34, 197, 94, 0.2);
+}
+
+.welcome-content h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.welcome-illustration i {
+    font-size: 4rem;
+    opacity: 0.8;
+}
+
+/* 圖表區域 */
+.chart-section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.chart-header h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+.chart-controls select {
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    color: #4a5568;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.main-chart {
+    height: 400px;
+    width: 100%;
+}
+
+/* 統計卡片區域 */
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.stat-card.primary {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    color: white;
+}
+
+.stat-card.primary .stat-header h4,
+.stat-card.primary .stat-value,
+.stat-card.primary .unit {
+    color: white;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.stat-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.stat-controls select {
+    padding: 4px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    font-size: 0.8rem;
+    color: #4a5568;
+}
+
+.stat-change {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.stat-change.positive {
+    color: #22c55e;
+}
+
+.stat-change.negative {
+    color: #ef4444;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 16px;
+}
+
+.unit {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #718096;
+    margin-left: 4px;
+}
+
+.stat-chart {
+    height: 60px;
+    width: 100%;
+}
+
+.mini-chart {
+    height: 100%;
+    width: 100%;
+}
+
+/* 家電狀態網格 */
+.appliances-grid {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.appliances-grid h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 24px;
+}
+
+.appliances-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.appliance-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+}
+
+.appliance-card:hover {
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.appliance-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: white;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.appliance-info {
+    flex: 1;
+}
+
+.appliance-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 4px;
+}
+
+.appliance-info .status {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-bottom: 2px;
+}
+
+.appliance-info .status.active {
+    color: #22c55e;
+    font-weight: 500;
+}
+
+.appliance-info .power {
+    font-size: 0.85rem;
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* 開關按鈕 */
+.toggle-switch {
+    width: 48px;
+    height: 24px;
+    background: #e2e8f0;
+    border-radius: 24px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.toggle-switch.active {
+    background: #22c55e;
+}
+
+.toggle-slider {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch.active .toggle-slider {
+    transform: translateX(24px);
+}
+
+/* 右側邊欄 */
+.right-sidebar {
+    background: white;
+    padding: 24px;
+    border-left: 1px solid #e2e8f0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 320px;
+    overflow-y: auto;
+}
+
+/* 側邊欄頂部 */
+.sidebar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    color: #64748b;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #ef4444;
+    color: white;
+}
+
+.notification-icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.notification-icon:hover {
+    background: #22c55e;
+    color: white;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* 用戶卡片 */
+.user-card {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    color: white;
+    font-size: 2rem;
+}
+
+.user-info h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 4px;
+}
+
+.user-role {
+    color: #22c55e;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.user-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #718096;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a202c;
+}
+
+/* 目標卡片 */
+.goals-card {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.goals-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 20px;
+}
+
+.goal-item {
+    margin-bottom: 16px;
+}
+
+.goal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* 任務卡片 */
+.tasks-card {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.tasks-card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 20px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.task-item.completed .task-checkbox {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: white;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-text {
+    display: block;
+    font-size: 0.9rem;
+    color: #1a202c;
+    margin-bottom: 2px;
+}
+
+.task-time {
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+/* 響應式設計 */
+@media (max-width: 1400px) {
+    .dashboard {
+        grid-template-columns: 280px 1fr;
+    }
+    
+    .right-sidebar {
+        display: none;
+    }
+    
+    .main-content {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 16px;
+    }
+    
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .appliances-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .welcome-illustration {
+        order: -1;
+    }
+    
+    .top-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+}
+
+/* 動畫效果 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card,
+.appliance-card,
+.chart-section,
+.appliances-grid {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Highcharts 自定義樣式 */
+.highcharts-background {
+    fill: transparent !important;
+}
+
+.highcharts-title {
+    fill: #1a202c !important;
+    font-weight: 600 !important;
+}
+
+.highcharts-axis-labels text {
+    fill: #4a5568 !important;
+}
+
+.highcharts-grid-line {
+    stroke: #e2e8f0 !important;
+}
+
+.highcharts-series {
+    stroke-width: 3 !important;
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #16a34a;
+} 
